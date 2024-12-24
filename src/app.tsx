@@ -1,13 +1,15 @@
-import Converter from "./components/converter";
-import Footer from "./components/footer";
-import Navbar from "./components/navbar";
+import Container from "react-bootstrap/Container";
+import { Converter, Footer, NavBar, Progress } from "./components";
 
 export default function App() {
   return (
     <>
-      <Navbar />
-      <Converter />
+      <NavBar />
+      <Container as="main" style={{ width: "100vw", minHeight: "100vh" }}>
+        <Progress />
+        <Converter />
+      </Container>
       <Footer />
     </>
-  )
+  );
 }

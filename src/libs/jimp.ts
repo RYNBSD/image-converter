@@ -3,11 +3,7 @@ import { defaultFormats, defaultPlugins, JimpMime } from "jimp";
 import jpeg from "@jimp/wasm-jpeg";
 import png from "@jimp/wasm-png";
 import webp from "@jimp/wasm-webp";
-// import avif from "@jimp/wasm-avif";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import avif from "https://cdn.jsdelivr.net/npm/@jimp/wasm-avif@1.6.0/+esm";
+import avif from "@jimp/wasm-avif";
 
 export const Jimp = createJimp({
   formats: [...defaultFormats, jpeg, png, webp, avif],
@@ -16,7 +12,7 @@ export const Jimp = createJimp({
 
 export const JIMP_MIME = {
   ...JimpMime,
-  avif: avif().mime as "image/avif",
+  avif: avif().mime,
   jpeg: jpeg().mime,
   png: png().mime,
   webp: webp().mime,

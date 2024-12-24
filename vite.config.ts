@@ -3,14 +3,23 @@ import react from "@vitejs/plugin-react";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { VitePWA } from "vite-plugin-pwa";
 
+const ReactCompilerConfig = {
+  target: "19", // '17' | '18' | '19'
+};
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      babel: {
+        plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
+      },
+    }),
     nodePolyfills({ include: ["buffer"] }),
     VitePWA({
       registerType: "autoUpdate", // Automatically updates the service worker
       workbox: {
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5 MB
         runtimeCaching: [
           {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -22,22 +31,6 @@ export default defineConfig({
               expiration: {
                 maxEntries: 50, // Keep a max of 50 entries
                 maxAgeSeconds: 60 * 60 * 24 * 30, // Cache for 30 days
-              },
-            },
-          },
-          {
-            // Cache the Jimp WASM module
-            urlPattern:
-              /^https:\/\/cdn\.jsdelivr\.net\/npm\/@jimp\/wasm-avif@1\.6\.0\/\+esm$/,
-            handler: "CacheFirst", // Prefer cache over network
-            options: {
-              cacheName: "jimp-wasm-avif-cache",
-              expiration: {
-                maxEntries: 5, // Keep a limited number of entries
-                maxAgeSeconds: 60 * 60 * 24 * 30, // Cache for 30 days
-              },
-              cacheableResponse: {
-                statuses: [0, 200], // Cache valid responses
               },
             },
           },
@@ -63,12 +56,7 @@ export default defineConfig({
       },
     }),
   ],
-  // optimizeDeps: {
-  //   exclude: ["@jsquash/avif", "@jsquash/jpeg", "@jsquash/jxl", "@jsquash/png", "@jsquash/webp"]
-  // }
-  // resolve: {
-  //   alias: {
-  //     "@": resolve(__dirname, "./src"),
-  //   },
-  // },
+  worker: {
+    format: "es",
+  },
 });

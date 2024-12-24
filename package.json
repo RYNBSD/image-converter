@@ -17,9 +17,12 @@
     "@jimp/wasm-webp": "^1.6.0",
     "bootstrap": "^5.3.3",
     "jimp": "^1.6.0",
-    "react": "^18.3.1",
-    "react-bootstrap": "^2.10.5",
-    "react-dom": "^18.3.1"
+    "react": "^19.0.0",
+    "react-bootstrap": "^2.10.7",
+    "react-bootstrap-icons": "^1.11.5",
+    "react-compiler-runtime": "^19.0.0-beta-b2e8e9c-20241220",
+    "react-dom": "^19.0.0",
+    "react-use": "^17.6.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
@@ -28,8 +31,10 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
+    "babel-plugin-react-compiler": "^19.0.0-beta-b2e8e9c-20241220",
     "cross-env": "^7.0.3",
     "eslint": "^9.13.0",
+    "eslint-plugin-react-compiler": "^19.0.0-beta-b2e8e9c-20241220",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.11.0",

@@ -11,16 +11,5 @@ body,
 #root {
   width: 100vw;
   min-height: 100vh;
-}
-
-.add-wrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-@media screen and (max-width: 767px) {
-  .add-wrapper {
-    flex-direction: column;
-  }
+  overflow-x: hidden;
 }
