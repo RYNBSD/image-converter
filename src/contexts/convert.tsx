@@ -40,8 +40,8 @@ export default function ConvertProvider({ children }: ChildrenProps) {
 
   const [options, setOptions] = useState<Options>({
     format: "png",
-    width: 1000,
-    height: 1000,
+    width: 0,
+    height: 0,
   });
 
   const changeOption = useCallback<ChangeOptionFn>((key, value) => {
@@ -110,11 +110,12 @@ export default function ConvertProvider({ children }: ChildrenProps) {
           let buffer: Buffer;
           try {
             const image = await Jimp.read(fileReader.result!);
-            if (options.width > 0 && options.height > 0) {
-              image.scaleToFit({ w: options.width, h: options.height });
-            }
-
-            buffer = await image.getBuffer(JIMP_MIME[options.format]);
+            buffer = await image
+              .resize({
+                w: options.width > 0 ? options.width : image.width,
+                h: options.height > 0 ? options.height : image.height,
+              })
+              .getBuffer(JIMP_MIME[options.format]);
           } catch (error) {
             updateProcess(process.id, "status", "error");
             updateProcess(process.id, "error", error as Error);
